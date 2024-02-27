@@ -34,8 +34,10 @@ const classe120 = [
   'Elena Ruscitto',
   'Laroussi Sarhane',
   'Alex Sibiriu',
-  'Anna Elisabeth Spjut'
+  'Anna Spjut'
 ];
+
+const nomiEstratti = [];
 
 /*
 1. inserire un addEventListener() al bottone "estrai"
@@ -46,10 +48,37 @@ const classe120 = [
 
 // 1.
 const btn = document.getElementById('estrai');
+const output = document.getElementById('nome-estratto')
+
 btn.addEventListener('click', function(){
-  // non deo fare array.lenngth - 1 perché arrotondo per difetto
-  const randomNumber = Math.floor(Math.random() * classe120.length)
-  const nomeEstratto = classe120[randomNumber]
-  document.getElementById('nome-estratto').innerHTML = nomeEstratto
+  btn.innerHTML = 'estrai';
+  let estrazioneValida = false;
+  // finche il nome non è valido faccio un'altra estrazione
+  while(!estrazioneValida){
+    const randomNumber = Math.floor(Math.random() * classe120.length)
+    const nomeEstratto = classe120[randomNumber];
+    // verifico se il nome è presente nll'elenco dei nomi estratti
+    estrazioneValida = !nomiEstratti.includes(nomeEstratto);
+
+    // if(nomiEstratti.includes(nomeEstratto) === false){
+    //   estrazioneValida = true;
+    // }
+
+    // se il nome è valido lo aggiungo all'elenco degli estritti
+    if(estrazioneValida){
+      nomiEstratti.push(nomeEstratto)
+      output.innerHTML = nomeEstratto;
+    }
+    // se la lunghezza dei nomi estratti è uguale alla lunghezza dell'elenco vuol dire che li ho estratti tutti
+    if(nomiEstratti.length === classe120.length && !estrazioneValida){
+      btn.innerHTML = 'ricomincia';
+      output.innerHTML = 'Tutti i nomi sono stati estratti';
+      // restto l'array dei nomi estrtti
+      nomiEstratti.splice(0)
+      estrazioneValida = true;
+    }
+
+  }
+
 })
 
