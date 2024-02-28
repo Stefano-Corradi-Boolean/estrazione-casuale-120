@@ -50,12 +50,19 @@ const nomiEstratti = [];
 const btn = document.getElementById('estrai');
 const output = document.getElementById('nome-estratto')
 
-btn.addEventListener('click', function(){
+// richiamo la funzione senza tonde
+btn.addEventListener('click', handleBtnExtraction);
+
+
+
+// FUNCTIONS ////////////////////////////////
+
+function handleBtnExtraction(){
   btn.innerHTML = 'estrai';
   let estrazioneValida = false;
   // finche il nome non è valido faccio un'altra estrazione
   while(!estrazioneValida){
-    const randomNumber = Math.floor(Math.random() * classe120.length)
+    const randomNumber = getRandomNumber(0, classe120.length - 1);
     const nomeEstratto = classe120[randomNumber];
     // verifico se il nome è presente nll'elenco dei nomi estratti
     estrazioneValida = !nomiEstratti.includes(nomeEstratto);
@@ -79,6 +86,8 @@ btn.addEventListener('click', function(){
     }
 
   }
+}
 
-})
-
+function getRandomNumber(min, max){
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
